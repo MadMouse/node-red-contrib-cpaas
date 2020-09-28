@@ -30,7 +30,7 @@ jobs:
 
             - name: Publish to NPMJS
               run: |
-                  echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
+                  echo "https://registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
                   npm init --scope=@madmouse
                   npm config set scope "@madmouse/node-red-contrib-cpaas"
                   npm config list
