@@ -1,0 +1,74 @@
+<script type="text/x-red" data-template-name="cpaas-broker">
+	<div class="form-row">
+	    <label for="node-config-input-sid">Account SID</label>
+	    <input type="text" id="node-config-input-sid">
+	   </div>
+
+	<div class="form-row">
+	    <label for="node-config-input-token"><i class="fa fa-lock"></i> Token</label>
+	    <input type="password" id="node-config-input-token">
+	   </div>
+	   <hr>
+	<div class="form-row">
+	       <label for="node-config-input-from"><i class="fa fa-envelope"></i> From</label>
+	       <input type="text" id="node-config-input-from" placeholder="+1 234 567 8901">
+	   </div>
+
+	<div class="form-row">
+	    <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+	    <input type="text" id="node-config-input-name" placeholder="Name">
+	</div>
+</script>
+
+<script type="text/x-red" data-template-name="cpaas-callback">
+	<div class="form-row">
+	    <label for="node-config-input-callBackUrl"> Url</label>
+	    <input type="text" id="node-config-input-callBackUrl">
+	   </div>
+
+	<div class="form-row">
+	    <label for="node-config-input-callBackMethod"><i class="fa fa-globe"></i> Method</label>
+	    <select id="node-config-input-callBackMethod" style="width:125px !important">
+	      <option value="sms">POST</option>
+	      <option value="call">GET</option>
+	    </select>
+	      </div>
+
+	   <div class="form-row">
+	    <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+	    <input type="text" id="node-config-input-name" placeholder="Name">
+	</div>
+</script>
+
+<script type="text/javascript">
+	(function () {
+		RED.nodes.registerType('cpaas-callback', {
+			category: 'config',
+			defaults: {
+				name: { value: '' },
+				callBackMethod: { value: 'POST' },
+				callBackUrl: { value: '' },
+			},
+			label: function () {
+				return this.name || this.title || 'CPAAS Callback';
+			},
+		});
+
+		RED.nodes.registerType('cpaas-broker', {
+			category: 'config',
+			defaults: {
+				name: { value: '' },
+				sid: { value: '', required: true },
+				from: { value: '', required: true },
+			},
+			credentials: {
+				token: { type: 'password', required: true },
+			},
+			label: function () {
+				return this.name || this.from || this.title || 'cpaas Broker';
+			},
+
+			oneditprepare: function () {},
+		});
+	})();
+</script>

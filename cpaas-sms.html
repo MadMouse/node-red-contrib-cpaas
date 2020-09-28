@@ -1,0 +1,67 @@
+<script type="text/x-red" data-template-name="cpaas/SMS">
+	<div class="form-row" id="node-input-cpaasBroker-row">
+	    <label for="node-input-cpaasBroker"><i class="fa fa-user"></i> CPAAS</label>
+	    <input type="text" id="node-input-cpaasBroker">
+	   </div>
+
+	<div class="form-row">
+	    <label for="node-input-number">
+	        <i class="fa fa-envelope-o" id="node-input-number-icon-sms"></i>
+	        To</label>
+	    <input type="text" id="node-input-number" placeholder="+012345678901">
+	   </div>
+
+	<div class="form-row" id="node-input-callbackBroker-row">
+	    <label for="node-input-callbackBroker"><i class="fa fa-user"></i> Callback</label>
+	    <input type="text" id="node-input-callbackBroker">
+	      </div>
+
+	<div class="form-row">
+	    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+	    <input type="text" id="node-input-name" placeholder="Name">
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="cpaas/SMS">
+	<p>Sends an SMS message or makes a call using the Avaya CPAAS service.</p>
+	<p><code>msg.payload</code> must contain the text of the SMS message.
+	The node can be configured with the number to send the message to.
+	   If the <code>msg.topic</code> is sent containing a number it will be used instead of one supplied in the config.
+	If the node is configured to make a call then the CallBack URL must be publically accessible.
+	<p>You must have an account with CPAAS to use this node. You can register for one <a href="https://cloud.zang.io//">here</a>.</p>
+</script>
+
+<script type="text/javascript">
+	(function () {
+		RED.nodes.registerType('cpaas/SMS', {
+			category: 'Avaya CPAAS',
+			defaults: {
+				cpaasBroker: { type: 'cpaas-broker' },
+				number: {
+					value: '',
+					required: true,
+					validate: RED.validators.regex(/^\+\d{1,3}\d{1,14}(\d{1,13})?/),
+				},
+				callbackBroker: { type: 'cpaas-callback', required: false },
+				name: { value: '' },
+			},
+			color: '#FF595F',
+			inputs: 1,
+			outputs: 1,
+			icon: 'avaya.png',
+			align: 'right',
+			label: function () {
+				return this.name || this.title || 'sms';
+			},
+			labelStyle: function () {
+				return this.name ? 'node_label_italic' : '';
+			},
+
+			oneditprepare: function () {
+				if (this.callBackMethod === null) {
+					this.callBackMethod.selectedIndex = 0;
+				}
+			},
+		});
+	})();
+</script>
