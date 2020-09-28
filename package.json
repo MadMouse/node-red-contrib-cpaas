@@ -1,6 +1,6 @@
 {
 	"name": "@madmouse/node-red-contrib-cpaas",
-	"version": "1.7.7",
+	"version": "1.7.8",
 	"description": "Avaya/CPAAS NodeRed integration",
 	"scripts": {
 		"test": "mocha \"test/**/*_spec.js\""
