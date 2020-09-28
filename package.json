@@ -1,6 +1,6 @@
 {
 	"name": "node-red-contrib-cpaas",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Avaya/CPAAS NodeRed integration",
 	"scripts": {
 		"test": "mocha \"test/**/*_spec.js\""
@@ -12,6 +12,9 @@
 			"cpaasCommonConfig": "cpaas-common-config.js",
 			"cpaasSMS": "cpaas-sms.js"
 		}
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
 	},
 	"dependencies": {
 		"@avaya/cpaas": "^0.9.1"
