@@ -29,7 +29,6 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - run: |
                   npm ci
-                  echo "https://registry.npmjs.org/:_authToken=${{secrets.npm_token}}" >> .npmrc
                   npm init --scope=@madmouse
                   npm config set scope "@madmouse/node-red-contrib-cpaas"
                   npm config list
