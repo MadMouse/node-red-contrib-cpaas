@@ -27,11 +27,11 @@ module.exports = function (RED) {
                     msg1.payload = accountDetails;
                     if (accountActive) {
                         utils.setOKStatus(node, 'Active');
+                        node.send([msg, null, msg1]);
                     } else {
                         utils.setErrorStatus(node, 'InActive');
+                        node.send([null, msg, msg1]);
                     };
-
-                    node.send([msg, msg1]);
                 }).catch((error) => {
                     utils.setErrorStatus(node, 'Account Details failed.');
                     node.error('Account Details failed, check token and sid : ' + error);
