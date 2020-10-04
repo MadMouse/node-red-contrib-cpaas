@@ -1,8 +1,9 @@
 module.exports = function (RED) {
     'use strict';
+    const cpaasEndpoints = require('./core/cpaas-endpoints');
     /**
-     * CPAAS Broker Node 
-     * @param {*} config 
+     * CPAAS Broker Node
+     * @param {*} config Node config.
      */
     function cpaasBrokerNode (config) {
         RED.nodes.createNode(this, config);
@@ -23,7 +24,7 @@ module.exports = function (RED) {
 
     /**
      * JDoc Pending
-     * @param {*} config 
+     * @param {*} config Node config.
      */
     function cpaasCallBackBrokerNode (config) {
         RED.nodes.createNode(this, config);
@@ -33,4 +34,5 @@ module.exports = function (RED) {
         node.name = config.name;
     }
     RED.nodes.registerType('cpaas-callback', cpaasCallBackBrokerNode);
+    cpaasEndpoints.registerNumberList(RED);
 };

@@ -11,7 +11,11 @@
 	   <hr>
 	<div class="form-row">
 	       <label for="node-config-input-from"><i class="fa fa-envelope"></i> From</label>
-	       <input type="text" id="node-config-input-from" placeholder="+1 234 567 8901">
+	       <select type="text" id="node-config-input-from">
+			   <option value="">Loading</option>
+		   </select>
+
+			<button type="button" id="from_refresh" class="red-ui-button">Refresh</button>
 	   </div>
 
 	<div class="form-row">
@@ -68,7 +72,44 @@
 				return this.name || this.from || this.title || 'cpaas Broker';
 			},
 
-			oneditprepare: function () {},
+			oneditprepare: function () {
+				var node = this;
+				populateNumbers(node, node.sid, node.credentials.token, false);
+				$('#from_refresh').on('click', function () {
+					populateNumbers(node, node.sid, node.credentials.token, true);
+				});
+			},
 		});
+
+		function populateNumbers(node, sid, token, forceRefresh) {
+			function buildNumberOptions(numbers) {
+				var select = $('#node-config-input-from');
+				select.empty();
+				select.append('<option value="">Select a Number</option>');
+				for (var n in numbers) {
+					select.append('<option value="' + numbers[n].phone_number + '" >' + numbers[n].phone_number + '</option>');
+				}
+				select
+					.find('option')
+					.filter(function () {
+						return $(this).val() === node.from;
+					})
+					.attr('selected', true);
+			}
+			if (!node.numbers || forceRefresh) {
+				if (sid && token) {
+					try {
+						$.getJSON('cpaas-numbers/' + sid + '/' + token + '/0', function (numbers) {
+							node.numbers = numbers;
+							buildNumberOptions(node.numbers);
+						});
+					} catch (e) {
+						alert('Numer list failed, check token and sid');
+					}
+				}
+			} else {
+				buildNumberOptions(node.numbers);
+			}
+		}
 	})();
 </script>
