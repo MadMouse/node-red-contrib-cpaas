@@ -10,7 +10,8 @@
 	"node-red": {
 		"nodes": {
 			"cpaasCommonConfig": "cpaas-common-config.js",
-			"cpaasSMS": "cpaas-sms.js"
+			"cpaasSMS": "cpaas-sms.js",
+			"cpaasAccountDetails": "cpaas-accountdetails.js"
 		}
 	},
 	"testpublishConfig": {

@@ -5,7 +5,6 @@ module.exports.registerNumberList = function (RED) {
     const node = this;
     /**
      * Shows info on all incoming numbers associated with some account
-     * @param {*} RED 
      */
     RED.httpAdmin.get('/cpaas-numbers/:sid/:token/:pageNumber', RED.auth.needsPermission('read'), function (req, res) {
         const incomingPhoneNumbersConnector = new cpaas.IncomingPhoneNumbersConnector({
@@ -23,3 +22,4 @@ module.exports.registerNumberList = function (RED) {
         }
     });
 };
+
